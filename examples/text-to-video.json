@@ -1,0 +1,55 @@
+{
+	"name": "UberLLM: text to video (Veo 3.1 Fast)",
+	"nodes": [
+		{
+			"parameters": {},
+			"id": "7a1f3c52-1d0e-4b7e-9a51-2c3e5f6a7b01",
+			"name": "When clicking 'Execute workflow'",
+			"type": "n8n-nodes-base.manualTrigger",
+			"typeVersion": 1,
+			"position": [0, 0]
+		},
+		{
+			"parameters": {
+				"operation": "chat",
+				"model": { "__rl": true, "mode": "id", "value": "openai/gpt-oss-120b" },
+				"prompt": "Write one sentence describing a calm 4-second video shot of a coffee cup on a wooden table at sunrise. Only the sentence.",
+				"chatOptions": { "maxTokens": 1024 }
+			},
+			"id": "7a1f3c52-1d0e-4b7e-9a51-2c3e5f6a7b02",
+			"name": "Write the prompt",
+			"type": "n8n-nodes-uberllm.uberLlm",
+			"typeVersion": 1,
+			"position": [220, 0],
+			"credentials": { "uberLlmApi": { "id": "", "name": "UberLLM account" } }
+		},
+		{
+			"parameters": {
+				"operation": "generateVideo",
+				"model": { "__rl": true, "mode": "id", "value": "fal-ai/veo3.1/fast" },
+				"prompt": "={{ $json.content }}",
+				"durationSeconds": 4,
+				"resolution": "720p",
+				"audio": "off",
+				"wait": true,
+				"download": true,
+				"videoOptions": { "maxCost": 0.5 }
+			},
+			"id": "7a1f3c52-1d0e-4b7e-9a51-2c3e5f6a7b03",
+			"name": "Make the video",
+			"type": "n8n-nodes-uberllm.uberLlm",
+			"typeVersion": 1,
+			"position": [440, 0],
+			"credentials": { "uberLlmApi": { "id": "", "name": "UberLLM account" } }
+		}
+	],
+	"connections": {
+		"When clicking 'Execute workflow'": {
+			"main": [[{ "node": "Write the prompt", "type": "main", "index": 0 }]]
+		},
+		"Write the prompt": {
+			"main": [[{ "node": "Make the video", "type": "main", "index": 0 }]]
+		}
+	},
+	"settings": { "executionOrder": "v1" }
+}
