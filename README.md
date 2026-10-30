@@ -91,7 +91,7 @@ More templates (faceless Shorts, product ads, image-to-video with Kling, a drop-
 
 The price is per second of video and is listed on each model's page and in the **Model** dropdown. When a job
 starts, the most it can cost is held from your balance (`max_cost_usd`) and the job is never billed more than that.
-A job that fails, is cancelled or expires costs nothing, and the hold comes back. Use **Price Check Only** to see the
+A job that fails or expires costs nothing, and the hold comes back. Credit you buy does not expire while your account is open. Use **Price Check Only** to see the
 price of a request before you run it. Details: [uberllm.dev/docs/media](https://uberllm.dev/docs/media).
 
 ## Compatibility
